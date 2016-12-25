@@ -7,10 +7,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 namespace SocialFashion.Web.Controllers
 {
+    [Authorize(Roles = "user")]
     public class UserController : Controller
     {
-
-
         // GET: User
         public ActionResult Profile(string id)
         {

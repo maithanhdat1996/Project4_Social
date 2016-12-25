@@ -1,4 +1,6 @@
-﻿using SocialFashion.Web.Mappings;
+﻿using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
+using SocialFashion.Web.Mappings;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -25,6 +27,12 @@ namespace SocialFashion.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutoMapperConfiguration.Configure();
             SqlDependency.Start(con);
+            var serializerSettings = new JsonSerializerSettings();
+            serializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+            serializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+
+            var serializer = JsonSerializer.Create(serializerSettings);
+            GlobalHost.DependencyResolver.Register(typeof(JsonSerializer), () => serializer);
             //GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             //GlobalConfiguration.Configuration.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
         }

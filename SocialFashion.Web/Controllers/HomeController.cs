@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SocialFashion.Web.Controllers
 {
+    [Authorize(Roles = "user")]
     public class HomeController : Controller
     {
         SocialFashionDbContext db;

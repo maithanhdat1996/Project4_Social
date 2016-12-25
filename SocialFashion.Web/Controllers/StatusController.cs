@@ -15,6 +15,7 @@ using SocialFashion.Data.Infrastructure;
 
 namespace SocialFashion.Web.Controllers
 {
+    [Authorize(Roles = "user")]
     public class StatusController : Controller
     {
         SocialFashionDbContext db;
