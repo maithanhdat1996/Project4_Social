@@ -33,6 +33,11 @@ namespace SocialFashion.Web.Controllers
             return PartialView();
         }
 
+        public ActionResult SearchUsersByKeyWord()
+        {
+            return PartialView();
+        }
+
         public JsonResult GetNotificationAPI()
         {
 
@@ -98,6 +103,18 @@ namespace SocialFashion.Web.Controllers
                 int? result = db.Fans_GetCountFanByRequestId(currentUserId).FirstOrDefault();
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetMemberSearchData(string searchString)
+        {
+            using (SocialFashionDbContext db = new SocialFashionDbContext())
+            {
+                List<AspNetUsers_SearchUserByKey_Result> result = db.AspNetUsers_SearchUserByKey(searchString).ToList();
+                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+
+
         }
     }
 }
