@@ -497,11 +497,13 @@
     <Content Include="Content\client\templates\socialize\local\css\themes\demo\megamenu.css" />
     <Content Include="Content\client\templates\socialize\local\css\themes\demo\template.css" />
     <Content Include="Content\client\templates\system\css\system.css" />
+    <Content Include="Content\datepicker.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Resource\script.sql" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -577,6 +579,7 @@
     <Content Include="Views\Home\ToolbarDesktopPartial.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\User\AllMember.cshtml" />
+    <Content Include="Views\User\ProfileEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -51,12 +51,41 @@
     <script src="/Content/client/plugins/system/t3/base-bs3/js/menu.js" type="text/javascript"></script>
     <script src="/Content/client/plugins/system/t3/base-bs3/js/nav-collapse.js" type="text/javascript"></script>
     <script type="text/javascript" src="/Content/client/plugins/system/jomsocial.system/pc_includes/ajax_1.5.pack.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script src="/Scripts/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="/Content/datepicker.css" type="text/css" />
 
     <style type="text/css">
         video {
             width: 100% !important;
             height: auto !important;
         }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#a-Stream").click(function (event) {
+                event.preventDefault();
+                $("#a-Stream").addClass("active");
+                $("#joms-app--feeds-special").css("display", "block");
+                $("#a-Aboutme").removeClass("active");
+                $("#joms-app--aboutme-special").css("display", "none");
+            });
+            $("#a-Aboutme").click(function (event) {
+                event.preventDefault();
+                $("#a-Stream").removeClass("active");
+                $("#joms-app--feeds-special").css("display", "none");
+                $("#a-Aboutme").addClass("active");
+                $("#joms-app--aboutme-special").css("display", "block");
+            });
+            $(function () {
+                $('#txtDOB').datepicker({ format: "dd//mm/yyyy" }).on('changeDate', function (ev) {
+                    $(this).datepicker('hide');
+                });
+            });
+        });
+    </script>
+    <style>
     </style>
 
 
@@ -387,7 +416,7 @@
 
 
         <div id="t3-mainbody" class="container t3-mainbody">
-            <div class="row">
+            <div class="row" style="">
 
                 <!-- MAIN CONTENT -->
                 <div id="t3-content" class="t3-content col-xs-12 col-sm-6  col-md-7">
@@ -898,6 +927,7 @@
                         </div>
                     </div>
                 </div>
+                <div style="clear:both"></div>
                 <!-- //SIDEBAR RIGHT -->
                 <!-- CHAT RIGHT -->
                 @if (Request.IsAuthenticated)

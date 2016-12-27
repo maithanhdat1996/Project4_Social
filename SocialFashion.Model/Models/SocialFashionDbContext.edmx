@@ -334,6 +334,14 @@
         <Function Name="Notifications_GetNotiByRecieverId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RecieverId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="User_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="nvarchar" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="bit" Mode="In" />
+          <Parameter Name="Birthdate" Type="datetime" Mode="In" />
+          <Parameter Name="Aboutme" Type="nvarchar" Mode="In" />
+          <Parameter Name="Website" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Users_GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
         </Function>
@@ -685,6 +693,36 @@
           <EntitySet Name="Notifications" EntityType="SocialFashionModel.Notification" />
           <FunctionImport Name="Notifications_GetNotiByRecieverId" ReturnType="Collection(SocialFashionModel.Notifications_GetNotiByRecieverId_Result)">
           <Parameter Name="RecieverId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="User_Update">
+            <Parameter Name="Id" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
+            <Parameter Name="Aboutme" Mode="In" Type="String" />
+            <Parameter Name="Website" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="User_Update1">
+            <Parameter Name="Id" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
+            <Parameter Name="Aboutme" Mode="In" Type="String" />
+            <Parameter Name="Website" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="User_Update2">
+            <Parameter Name="Id" Mode="In" Type="String" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Gender" Mode="In" Type="Boolean" />
+            <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
+            <Parameter Name="Aboutme" Mode="In" Type="String" />
+            <Parameter Name="Website" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Message">
@@ -1208,6 +1246,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="User_Update2" FunctionName="SocialFashionModel.Store.User_Update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
