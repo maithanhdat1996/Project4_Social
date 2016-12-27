@@ -240,8 +240,8 @@
             <div class="joms-middlezone" data-ui-object="joms-tabs">
                 <div>
                     <div class="joms-tab__bar">
-                        <a class="active" href="#joms-app--feeds-special">Stream</a>
-                        <a href="#joms-app--aboutme-special" class="">About me</a>
+                        <a class="active" href="#joms-app--feeds-special" id="a-Stream">Stream</a>
+                        <a href="#joms-app--aboutme-special" class="" id="a-Aboutme">About me</a>
                     </div>
 
                     <!-- begin: .app-box -->
@@ -2891,22 +2891,27 @@
 
                                     <li>
                                         <h5 class="joms-text--light">Gender</h5>
-                                        <span>
-                                            <a href="/search/field?FIELD_GENDER=Female&amp;type=select"> Female </a>
-                                        </span>
+                                            @if (Model.Gender == true)
+                                            {
+                                                <span>Male</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Female</span>
+                                            }
                                     </li>
 
                                     <li>
                                         <h5 class="joms-text--light">Birthdate</h5>
                                         <span>
-                                            15. 11. 1972
+                                            @ViewBag.birthDate
                                         </span>
                                     </li>
 
                                     <li>
                                         <h5 class="joms-text--light">About me</h5>
                                         <span>
-                                            My bio goes here
+                                            @Model.Aboutme
                                         </span>
                                     </li>
                                 </ul>
@@ -2920,14 +2925,14 @@
                                     <li>
                                         <h5 class="joms-text--light">Website</h5>
                                         <span>
-                                            <a rel="nofollow" href="http://ijoomla.com" target="_blank">http://ijoomla.com</a>
+                                            <a rel="nofollow" href="@Model.Website" target="_blank">@Model.Website</a>
                                         </span>
                                     </li>
                                 </ul>
 
                             </div>
                             <div class="joms-module__footer">
-                                <a class="joms-button--primary joms-button--full" href="/profile/edit" title="Edit Profile">Edit Profile</a>
+                                @Html.ActionLink("Edit Profile", "ProfileEdit", new { id = @Model.Id }, new { @class = "joms-button--primary joms-button--full" })
                             </div>
 
 

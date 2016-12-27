@@ -174,5 +174,34 @@ namespace SocialFashion.Model.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notifications_GetNotiByRecieverId_Result>("Notifications_GetNotiByRecieverId", recieverIdParameter);
         }
+    
+        public virtual int User_Update(string id, string name, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var genderParameter = gender.HasValue ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(bool));
+    
+            var birthdateParameter = birthdate.HasValue ?
+                new ObjectParameter("Birthdate", birthdate) :
+                new ObjectParameter("Birthdate", typeof(System.DateTime));
+    
+            var aboutmeParameter = aboutme != null ?
+                new ObjectParameter("Aboutme", aboutme) :
+                new ObjectParameter("Aboutme", typeof(string));
+    
+            var websiteParameter = website != null ?
+                new ObjectParameter("Website", website) :
+                new ObjectParameter("Website", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("User_Update2", idParameter, nameParameter, genderParameter, birthdateParameter, aboutmeParameter, websiteParameter);
+        }
     }
 }

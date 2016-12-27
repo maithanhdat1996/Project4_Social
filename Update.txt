@@ -1,0 +1,8 @@
+------ Ngày 27/12/2016
+Hoan Thien Edit Profile Infomation: Name, Birthdate, gender, Aboutme, Website...
+THem date picker
+Bug: date picker hoi cui` nen sua lai sau, 2 cai select element trong Edit Profile chon Gender va Website protocol dang bi loi.
+Edit Profile Phan account de doi mat khau chua viet code vi doc qua thay co store procedure cho chang pass nen tam thoi de lai.
+cac file da sua: UserCOntroller, Register View, Layout View, Profile Vew.
+File da them: Content/datepicker.css, scripts/bootstrap-datepicker.js, ProfileEdit View, web/resource/sp_User_Update.script
+------ end
