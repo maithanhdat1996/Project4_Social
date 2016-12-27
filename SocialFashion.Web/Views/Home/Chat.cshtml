@@ -78,7 +78,7 @@
         function registerClientMethods(chatHub) {
             // Calls when user successfully logged in
             chatHub.client.onConnected = function (id, userName, allUsers, messages) {
-                
+                console.log(allUsers);
 
                 $('#hdId').val(id);
                 $('#hdUserName').val(userName);
@@ -86,7 +86,9 @@
 
                 // Add All Users
                 for (i = 0; i < allUsers.length; i++) {
-                    AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName, allUsers[i].Email);
+                    
+                    console.log(allUsers[i].Name);
+                    AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName, allUsers[i].Email, allUsers[i].ImageAvatar);
                 }
 
                 // Add Existing Messages
@@ -98,8 +100,8 @@
             }
 
             // On New User Connected
-            chatHub.client.onNewUserConnected = function (id, name, email) {
-                AddUser(chatHub, id, name, email);
+            chatHub.client.onNewUserConnected = function (id, name, email,imageAvatar) {
+                AddUser(chatHub, id, name, email, imageAvatar);
             }
 
             // On User Disconnected
@@ -158,8 +160,8 @@
         }
 
         // Add User
-        function AddUser(chatHub, id, name, email) {
-           
+        function AddUser(chatHub, id, name, email,image) {
+
             var userId = $('#hdId').val();
             var userEmail = $('#hdEmailID').val();
             var code = "";
@@ -168,7 +170,7 @@
                 code = $('<div class="loginUser">' + name + "</div>");
             }
             else {
-                code = $('<a id="' + id + '" class="user" >' + name + '<a>');
+                code = $('<a id="' + id + '" class="user" style="display:block" href="#"><img src=' + image + ' width="40px">' + name + '<a>');
                 $(code).click(function () {
                     var id = $(this).attr('id');
                     if (userEmail != email) {

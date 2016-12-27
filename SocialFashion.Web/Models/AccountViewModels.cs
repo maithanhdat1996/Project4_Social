@@ -101,6 +101,8 @@ namespace SocialFashion.Web.Models
 
         [Display(Name = "Website")]
         public string Website { get; set; }
+
+
     }
 
     public class ResetPasswordViewModel

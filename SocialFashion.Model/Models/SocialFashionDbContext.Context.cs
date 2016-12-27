@@ -174,14 +174,5 @@ namespace SocialFashion.Model.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notifications_GetNotiByRecieverId_Result>("Notifications_GetNotiByRecieverId", recieverIdParameter);
         }
-    
-        public virtual ObjectResult<AspNetUsers_SearchUserByKey_Result> AspNetUsers_SearchUserByKey(string keyword)
-        {
-            var keywordParameter = keyword != null ?
-                new ObjectParameter("Keyword", keyword) :
-                new ObjectParameter("Keyword", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AspNetUsers_SearchUserByKey_Result>("AspNetUsers_SearchUserByKey", keywordParameter);
-        }
     }
 }

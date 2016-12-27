@@ -26,8 +26,8 @@
 
                     <div class="joms-focus__header">
                         <div class="joms-avatar--focus joms-online">
-                            <a href="#" style="cursor:default" onclick="joms.api.photoOpen(33, 84); return false;">
-                                <img src="http://socialize.jomsocial.com/images/avatar/7e1aefed8ac11ed92f4f2746.jpg?_=1482162423" alt="demo">
+                            <a href="@Url.Action("Upload","Avatar")" style="cursor:pointer" >
+                                <img src="@Url.Content("~/"+Model.ImageAvartar)" alt="@Model.Name">
 
                             </a>
                         </div>
@@ -143,27 +143,19 @@
                 <input type="button" class="joms-button--primary" data-ui-object="button-save" value="Save">
             </div>
 
-            <div class="joms-focus__button--options--desktop">
-                <a href="javascript:" data-ui-object="joms-dropdown-button">
-
+            <div class="joms-focus__button--options--desktop" style="top: 76px;">
+                <a id="optionProfile" href="#">
+                    <span class="glyphicon glyphicon-cog" style="font-size:21px"></span>   
                 </a>
                 <!-- No need to populate menus as it is cloned from mobile version. -->
-                <ul class="joms-dropdown">
+                <ul class="joms-dropdown" style="display:none" id="dropdownProfile">
 
-                    <li><a href="javascript:" onclick="joms.api.avatarChange('profile', '69');">Change Avatar</a></li>
-                    <li class="joms-hidden--small"><a href="javascript:" data-propagate="1" onclick="joms.api.coverReposition('profile', '69');">Reposition Cover</a></li>
-                    <li><a href="javascript:" onclick="joms.api.coverChange('profile', '69');">Modify Cover</a></li>
-
-
-                    <li><a href="javascript:" onclick="joms.api.userChangeVanityURL('69');">Change vanity URL</a></li>
-
-                    <li><a href="javascript:" onclick="joms.api.avatarRemove(null, '69');">Remove Profile Picture</a></li>
-
-                    <li><a href="javascript:" onclick="joms.api.coverRemove('profile', '69');">Remove Profile Cover Photo</a></li>
+                    <li><a href="#" id="changeAvatar">Change Avatar</a></li>
+                    <li class="joms-hidden--small"><a href="#" >Reposition Cover</a></li>
+                    <li><a href="#" >Modify Cover</a></li>
 
 
-
-                    <li><a href="/profile/preferences">Preferences</a></li>
+                  
 
 
 
@@ -199,7 +191,6 @@
 
         </div>
 
-        <img src="http://socialize.jomsocial.com/components/com_community/assets/badge_1.png" alt="0" class="joms-focus__badges  ">
 
 
         <div class="joms-focus__info">
@@ -249,8 +240,8 @@
             <div class="joms-middlezone" data-ui-object="joms-tabs">
                 <div>
                     <div class="joms-tab__bar">
-                        <a class="active" href="#joms-app--feeds-special">Stream</a>
-                        <a href="#joms-app--aboutme-special" class="">About me</a>
+                        <a class="active" href="#joms-app--feeds-special" id="a-Stream">Stream</a>
+                        <a href="#joms-app--aboutme-special" class="" id="a-Aboutme">About me</a>
                     </div>
 
                     <!-- begin: .app-box -->
@@ -2900,22 +2891,27 @@
 
                                     <li>
                                         <h5 class="joms-text--light">Gender</h5>
-                                        <span>
-                                            <a href="/search/field?FIELD_GENDER=Female&amp;type=select"> Female </a>
-                                        </span>
+                                            @if (Model.Gender == true)
+                                            {
+                                                <span>Male</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Female</span>
+                                            }
                                     </li>
 
                                     <li>
                                         <h5 class="joms-text--light">Birthdate</h5>
                                         <span>
-                                            15. 11. 1972
+                                            @ViewBag.birthDate
                                         </span>
                                     </li>
 
                                     <li>
                                         <h5 class="joms-text--light">About me</h5>
                                         <span>
-                                            My bio goes here
+                                            @Model.Aboutme
                                         </span>
                                     </li>
                                 </ul>
@@ -2929,14 +2925,14 @@
                                     <li>
                                         <h5 class="joms-text--light">Website</h5>
                                         <span>
-                                            <a rel="nofollow" href="http://ijoomla.com" target="_blank">http://ijoomla.com</a>
+                                            <a rel="nofollow" href="@Model.Website" target="_blank">@Model.Website</a>
                                         </span>
                                     </li>
                                 </ul>
 
                             </div>
                             <div class="joms-module__footer">
-                                <a class="joms-button--primary joms-button--full" href="/profile/edit" title="Edit Profile">Edit Profile</a>
+                                @Html.ActionLink("Edit Profile", "ProfileEdit", new { id = @Model.Id }, new { @class = "joms-button--primary joms-button--full" })
                             </div>
 
 
@@ -3044,6 +3040,58 @@
         </div>
     </div>
 </div>
+<div id="modalChangeAvatar" style="display:none">
+    <div class="mfp-bg mfp-ready opacityModalChangeAvatar"></div>
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready contentModalChangeAvatar" tabindex="-1" style="overflow-x: hidden; overflow-y: auto;">
+        <div class="mfp-container mfp-inline-holder joms-popup__wrapper mfp-s-ready">
+            <div class="mfp-content">
+                <div class="joms-popup joms-popup--whiteblock">
+                    <div class="joms-popup__title"><button class="mfp-close closeModalChangeAvatar" type="button" title="Close (Esc)">×</button>Change Avatar</div>
+                    <div class="joms-popup__content">
+                        <form method="POST" enctype="multipart/form-data" action="/photos/changeAvatar?type=profile&amp;id=69">
+                            <p>Select an image to upload:</p>
+                            <div class="joms-js--avatar-uploader-error joms-alert--warning" style="display:none"></div>
+                            <label class="label-filetype">
+                                <a class="joms-button--primary joms-button--small joms-button--full joms-js--button-upload" href="javascript:">
+                                    Upload photo
+                                </a>
+                                <div class="joms-progressbar" style="margin-top:4px;"><div class="joms-progressbar__progress"></div></div>
+                            </label>
+                        </form>
+                    </div>
+                    <div class="joms-avatar__cropper">
+                        <div class="joms-popup__content">
+                            <div>
+                                <div class="joms-cropper--info">
+                                    <strong>Crop Your Avatar for Thumbnail View</strong>
+                                    <p>Drag the corners of the transparent box to resize the thumbnail image.</p>
+                                </div>
+                                <div class="joms-cropper"><div class="joms-cropper__wrapper"><img src="http://socialize.jomsocial.com/images/avatar/profile-7e1aefed8ac11ed92f4f2746.jpg"><div class="joms-cropper__box" style="user-select: none; touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: sw-resize;"></div></div></div>
+                            </div>
+                        </div>
+                        <div class="joms-popup__action">
+                            <div>
+                                <div class="pull-left">
+                                    <button class="joms-button--neutral joms-button--small joms-js--button-rotate-left">Rotate Left</button>&nbsp;
+                                    <button class="joms-button--neutral joms-button--small joms-js--button-rotate-right">Rotate Right</button>
+                                </div>
+                                <button class="joms-button--primary joms-button--small joms-js--button-save">Save Thumbnail</button>
+                            </div>
+                            <div class="clearfix" style="margin-top:4px">
+                                <div class="pull-left">
+                                    <button class="joms-button--neutral joms-button--small" onclick="window.location = '/photos/removeAvatar?type=profile&amp;id=69';">Remove Avatar</button> &nbsp;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="joms-popup__action"><button class="joms-button--neutral joms-button--small joms-js--button-close">Close</button></div>
+                </div>
+            </div><div class="mfp-preloader">Loading...</div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
 
@@ -3104,5 +3152,24 @@
            }
        });
    });
+
+   $("#optionProfile").on("click", function (event) {
+       event.preventDefault();
+       $("#dropdownProfile").css("display","block")
+   });
+
+   //var htmlModalChangeAvatar = $("#modalChangeAvatar").html();
+
+   //$("#changeAvatar").click(function (event) {
+   //    event.preventDefault();
+   //    $(this).closest("body").append(htmlModalChangeAvatar);
+   //});
+
+
+   //$("body").delegate(".closeModalChangeAvatar", "click", function () {
+   //    $(this).closest(".contentModalChangeAvatar").remove();
+   //    $(this).closest("body").find(".opacityModalChangeAvatar").remove();
+   //});
+   
    
 </script>

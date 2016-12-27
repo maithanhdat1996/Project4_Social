@@ -41,7 +41,7 @@
                                 @Html.LabelFor(m => m.Birthdate)
                             </span>
                             <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.Birthdate, new { @class = "joms-input" })
+                                @Html.TextBoxFor(m => m.Birthdate, new { @class = "joms-input", @id = "txtDOB", @readOnly = "true" })
                             </div>
                         </div>
 
