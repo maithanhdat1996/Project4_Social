@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 namespace SocialFashion.Web.Controllers
 {
-    [Authorize(Roles = "user")]
+   
     public class UserController : Controller
     {
         // GET: User
@@ -63,15 +63,7 @@ namespace SocialFashion.Web.Controllers
 
         }
 
-        public ActionResult AllMember()
-        {
-            using (SocialFashionDbContext db = new SocialFashionDbContext())
-            {
-                List<Users_List_Result> listMember = db.Users_List().ToList();
-                return View(listMember);
-            }
-
-        }
+        
 
         [HttpPost]
         public JsonResult AddFriend(string id, string msg)

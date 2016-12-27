@@ -39,13 +39,13 @@ namespace SocialFashion.Web
 
         protected void Session_Start(object sender, EventArgs e)
         {
-            NotificationComponent NC = new NotificationComponent();
-            MessageComponent MC = new MessageComponent();
-            FanComponent FC = new FanComponent();
-            MC.RegisterNotificationMsg();
-            NC.RegisterNotification();
+            //NotificationComponent NC = new NotificationComponent();
+            //MessageComponent MC = new MessageComponent();
+            //FanComponent FC = new FanComponent();
+            //MC.RegisterNotificationMsg();
+            //NC.RegisterNotification();
 
-            FC.RegisterFan();
+            //FC.RegisterFan();
         }
 
         protected void Application_End()

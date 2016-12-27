@@ -39,5 +39,7 @@ namespace SocialFashion.Model.Models
         public Nullable<short> Status { get; set; }
         public Nullable<System.DateTime> FriendShipDate { get; set; }
         public string Message { get; set; }
+        public string ImageAvartar { get; set; }
+        public string ImageCover { get; set; }
     }
 }

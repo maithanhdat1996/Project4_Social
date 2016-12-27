@@ -12,7 +12,7 @@ using SocialFashion.Web.Models;
 
 namespace SocialFashion.Web.Controllers
 {
-    [Authorize(Roles = "user")]
+   
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

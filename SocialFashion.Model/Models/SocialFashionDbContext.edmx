@@ -778,7 +778,7 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
           <Property Type="DateTime" Name="Birthdate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Aboutme" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="Website" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Website" Nullable="true" MaxLength="250" />
           <Property Type="Boolean" Name="Gender" Nullable="true" />
           <Property Type="String" Name="ConnectionId" Nullable="true" MaxLength="100" />
           <Property Type="Boolean" Name="IsOnline" Nullable="true" />
@@ -788,6 +788,8 @@
           <Property Type="Int16" Name="Status" Nullable="true" />
           <Property Type="DateTime" Name="FriendShipDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Message" Nullable="true" MaxLength="5000" />
+          <Property Type="String" Name="ImageAvartar" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ImageCover" Nullable="true" MaxLength="250" />
         </ComplexType>
         <ComplexType Name="Messages_GetLastMessageByRecieverEmail_Result">
           <Property Type="Int32" Name="MessageId" Nullable="false" />
@@ -1159,6 +1161,8 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="FriendShipDate" ColumnName="FriendShipDate" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ImageAvartar" ColumnName="ImageAvartar" />
+                <ScalarProperty Name="ImageCover" ColumnName="ImageCover" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

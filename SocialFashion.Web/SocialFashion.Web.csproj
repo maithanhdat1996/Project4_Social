@@ -251,8 +251,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ChatHub.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AvatarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MembersController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="FanComponent.cs" />
@@ -261,6 +263,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
+    <Compile Include="Infrastructure\Core\PaginationSet.cs" />
     <Compile Include="Mappings\AutomapperConfiguration.cs" />
     <Compile Include="MessageComponent.cs" />
     <Compile Include="MessageHub.cs" />
@@ -268,6 +271,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\UserDetail.cs" />
     <Compile Include="NotificationComponent.cs" />
     <Compile Include="NotificationHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -428,7 +432,7 @@
     <Content Include="Content\client\css\JQueryUI\themes\ui-lightness\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\client\css\JQueryUI\themes\ui-lightness\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Content\client\html5shim.googlecode.com\svn\trunk\html5.js" />
-    <Content Include="Content\client\images\avatar\avatar-female.jpg" />
+    <Content Include="Images\Avatars\avatar-female.jpg" />
     <Content Include="Content\client\images\avatar\group\55a94f957df3936c4d12f06a.png" />
     <Content Include="Content\client\images\avatar\group\thumb_6aa11a56cb253cd48da1d4d4f470362c.png" />
     <Content Include="Content\client\images\avatar\group\thumb_d0301f79bb177e0e0a6fbeafb04f8628.png" />
@@ -442,7 +446,7 @@
     <Content Include="Content\client\images\avatar\thumb_ac60bfaf953aea9f068fb06c.jpg" />
     <Content Include="Content\client\images\avatar\thumb_cc33a13fdc009f7d821d7872.jpg" />
     <Content Include="Content\client\images\avatar\thumb_e390aef42eb30667a730f311c8bfa473.jpg" />
-    <Content Include="Content\client\images\avatar\avatar_male.jpg" />
+    <Content Include="Images\Avatars\avatar_male.jpg" />
     <Content Include="Content\client\images\cover\event\1\thumb_238d2a7579bf5a34192e4649e47f690b.png" />
     <Content Include="Content\client\images\cover\event\1\thumb_2c770d7e9acb2c05347d0ce3a23330ab.png" />
     <Content Include="Content\client\images\cover\event\1\thumb_411fe709ffa4a79e51c7a7bc3c7ea9db.png" />
@@ -476,6 +480,7 @@
     <Content Include="Content\client\images\photos\83\24\d114aaf8a53981799c181fb0.jpg" />
     <Content Include="Content\client\images\socialize-logo.png" />
     <Content Include="Content\client\images\team5.jpg" />
+    <Content Include="Content\client\imgs\url.png" />
     <Content Include="Content\client\joomlart.s3.amazonaws.com\images\jat3v3-documents\logo-complete\t3logo-big-color.png" />
     <Content Include="Content\client\media\jui\js\jquery-migrate.min.js" />
     <Content Include="Content\client\media\jui\js\jquery-noconflict.js" />
@@ -497,10 +502,14 @@
     <Content Include="Content\client\templates\socialize\local\css\themes\demo\megamenu.css" />
     <Content Include="Content\client\templates\socialize\local\css\themes\demo\template.css" />
     <Content Include="Content\client\templates\system\css\system.css" />
+    <Content Include="Content\jquery.Jcrop.css" />
+    <Content Include="Content\jquery.Jcrop.min.css" />
+    <Content Include="Content\site.avatar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Avatars\IMG20161224213319.jpg" />
     <Content Include="Resource\script.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -520,7 +529,16 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery.form.min.js.map" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.form.min.js" />
+    <Content Include="Scripts\jquery.Jcrop.js" />
+    <Content Include="Scripts\jquery.Jcrop.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -528,8 +546,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\platform.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.avatar.js" />
     <Content Include="Scripts\ui\jquery.ui.core.js" />
     <Content Include="Scripts\ui\jquery.ui.dialog.js" />
     <Content Include="Scripts\ui\jquery.ui.draggable.js" />
@@ -577,6 +598,12 @@
     <Content Include="Views\Home\ToolbarDesktopPartial.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\User\AllMember.cshtml" />
+    <Content Include="Web1.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\Avatar\_Upload.cshtml" />
+    <Content Include="Views\Avatar\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -584,6 +611,8 @@
     <Folder Include="Content\client\images\status\" />
     <Folder Include="Content\client\plugins\system\t3\base-bs3\fonts\font-awesome\font\" />
     <Folder Include="Content\client\templates\socialize\fonts\font-awesome\fonts\" />
+    <Folder Include="Images\Covers\" />
+    <Folder Include="Images\Photos\" />
     <Folder Include="Views\Status\" />
   </ItemGroup>
   <ItemGroup>

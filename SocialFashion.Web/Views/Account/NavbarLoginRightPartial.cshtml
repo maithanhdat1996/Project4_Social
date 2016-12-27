@@ -7,14 +7,10 @@
         <div class="navbar-user">
             <a class="" href="@Url.Action("Profile", "User", new { id = Model.Id })">
                
-                @if (Model.Gender == true)
-                {
-                    <img class="img-circle" width="30" src="~/Content/client/images/avatar/avatar_male.jpg" alt="@Model.Name" />
-                }
-                else
-                {
-                    <img class="img-circle" width="30" src="~/Content/client/images/avatar/avatar-female.jpg" alt="@Model.Name" />
-                }
+                
+                    <img class="img-circle" width="30" src="@Url.Content("~/"+Model.ImageAvartar)" alt="@Model.Name" />
+                
+                
 
                  
                 <span>@Model.Name</span>
@@ -26,7 +22,7 @@
                     <span class="glyphicon glyphicon-cog"></span> <!--<span class="caret"></span>-->
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="/profile/uploadAvatar">Change avatar</a></li>
+                    <li><a href="@Url.Action("Upload","Avatar")">Change avatar</a></li>
                     <li><a href="/profile/edit">Edit profile</a></li>
                     <li><a href="/profile/preferences">Change privacy</a></li>
                 </ul>
