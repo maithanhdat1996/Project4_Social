@@ -26,7 +26,7 @@
 
                     <div class="joms-focus__header">
                         <div class="joms-avatar--focus joms-online">
-                            <a href="@Url.Action("Upload","Avatar")" style="cursor:pointer" >
+                            <a href="@Url.Action("Upload","Avatar")" style="cursor:pointer">
                                 <img src="@Url.Content("~/"+Model.ImageAvartar)" alt="@Model.Name">
 
                             </a>
@@ -145,17 +145,17 @@
 
             <div class="joms-focus__button--options--desktop" style="top: 76px;">
                 <a id="optionProfile" href="#">
-                    <span class="glyphicon glyphicon-cog" style="font-size:21px"></span>   
+                    <span class="glyphicon glyphicon-cog" style="font-size:21px"></span>
                 </a>
                 <!-- No need to populate menus as it is cloned from mobile version. -->
                 <ul class="joms-dropdown" style="display:none" id="dropdownProfile">
 
                     <li><a href="#" id="changeAvatar">Change Avatar</a></li>
-                    <li class="joms-hidden--small"><a href="#" >Reposition Cover</a></li>
-                    <li><a href="#" >Modify Cover</a></li>
+                    <li class="joms-hidden--small"><a href="#">Reposition Cover</a></li>
+                    <li><a href="#">Modify Cover</a></li>
 
 
-                  
+
 
 
 
@@ -245,147 +245,7 @@
                     </div>
 
                     <!-- begin: .app-box -->
-                    <div id="joms-app--feeds-special" class="joms-tab__content joms-tab__content--stream  app-core" style="display: block;">
-
-                        <div class="joms-gap"></div>
-
-                        <!-- end: .app-box-header -->
-                        <!-- begin: .app-box-content -->
-                        <div class="joms-app--wrapper">
-                            <div class="publishContainer">
-                                <textarea class="form-control" id="txtMessage" data-bind="value: newMessage, jqAutoresize: {}" style="height:5em;" placeholder="What's on your mind?"></textarea>
-                                <div class="row">
-                                    <div class="col-lg-2 col-lg-offset-8">
-                                        <select class="form-control" id="sltStatus" data-bind="value: sltStatus">
-                                            <option value="0">Public</option>
-                                            <option value="1">Friend</option>
-                                            <option value="2">Private</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <input type="button" class="btn btn-default" data-url="/Wall/SavePost" value="Share" id="btnShare" data-bind="click: addPost">
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="error" style="color:red" data-bind="text:error"></p>
-                            <div class="notification" data-bind="visible: newPosts().length > 0"><a data-bind="click: loadNewPosts"> <span data-bind="text: newPosts().length"></span> new post(s)</a></div>
-                            <div data-bind="foreach: posts" class="joms-stream joms-embedly--left joms-js--stream joms-js--stream-187 " data-stream-id="187" data-stream-type="photos">
-                                <div class="joms-stream__header">
-                                    <div class="joms-avatar--stream joms-online">
-                                        <a href="/demo/profile">
-                                            <img data-bind="attr: { src: PostedByAvatar }">
-                                        </a>
-                                    </div>
-                                    <div class="joms-stream__meta">
-                                        <a class="joms-stream__user" href="/demo/profile"><span data-bind="text: PostedByName"></span></a>
-                                        post a status
-                                        <span class="joms-stream__time">
-                                            <span class="timeago" data-bind="text: PostedDate"></span>
-
-                                            <svg viewBox="0 0 16 16" class="joms-icon joms-show-earth">
-
-
-                                        </span>
-                                    </div>
-
-
-                                    <div class="joms-list__options">
-
-                                        <a href="javascript:" class="joms-button--options" data-ui-object="joms-dropdown-button">
-                                        </a>
-
-                                        <ul class="joms-dropdown">
-                                            <li>
-                                                <a href="javascript:" data-propagate="1" onclick="joms.api.streamSelectPrivacy('187');">
-                                                    Privacy Setting
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="javascript:" data-propagate="1" onclick="joms.api.streamHide('187', '69');">
-                                                    Hide this stream
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:" data-propagate="1" onclick="joms.api.streamRemove('187');">
-                                                    Delete post
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="joms-stream__body">
-                                    <p><span class="joms-js--stream-text-187" data-bind="text: Message"></span></p>
-                                </div>
-
-                                <a data-bind="click: addLike"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-
-                                <div class="joms-stream__status">
-                                    <span data-bind="text: CountLike"></span> person likes this
-                                </div>
-                                <a class="commentNotification" data-bind="click: loadNewComments, visible: NewComments().length > 0"> <span data-bind=" text NewComments().length"></span> new comment(s)</a>
-                                <div data-bind="foreach: PostComments">
-                                    <div class="joms-comment joms-js--comments joms-js--comments-157" data-id="157">
-                                        <div class="joms-comment__item joms-js--comment joms-js--comment-6" data-id="6" data-parent="157" data-comment-id="6">
-                                            <div class="joms-comment__header">
-                                                <div class="joms-avatar--comment ">
-                                                    <a href="/72-/profile">
-                                                        <img data-bind="attr: { src: CommentedByAvatar }">
-                                                    </a>
-                                                </div>
-                                                <div class="joms-comment__body joms-js--comment-body">
-                                                    <a class="joms-comment__user" href="/72-/profile"><span data-bind="text: CommentedByName"></span></a>
-                                                    <span class="joms-js--comment-content">
-                                                        <span class="joms-js--comment-text-6">
-                                                            <span data-bind="text: Message"></span><br />
-                                                        </span>
-                                                    </span>
-
-                                                    <span class="joms-comment__time"><small><span class="timeago" data-bind="text: CommentedDate"></span></small></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--<span class="joms-comment__time"><small>3 years ago </small></span>-->
-                                </div>
-
-                                <div class="joms-comment__reply joms-js--newcomment joms-js--newcomment-187" data-id="187">
-                                    <div class="joms-textarea__wrapper">
-                                        <textarea data-bind="value: newCommentMessage, jqAutoresize: {}" placeholder="write a comment..." class="joms-textarea" name="comment" data-id="187"
-                                                  data-tag-func="photo" data-tag-id="82"></textarea>
-                                    </div>
-                                </div>
-                                <button class="joms-button--comment joms-js--btn-send" data-bind="click: addComment">
-                                    Send
-                                </button>
-                            </div>
-                            <script src="~/Scripts/wallpostprofile.js"></script>
-                        </div>
-                                </div>
-                                <!-- end: .joms-stream__container -->
-
-
-                                <div class="joms-stream__loadmore cActivity-LoadMore" id="activity-more">
-                                    <a class="more-activity-text joms-button--primary joms-button--full" href="javascript:" onclick="joms.api.streamsLoadMore();" style="display: none;">More</a>
-                                    <div class="loading"></div>
-                                </div>
-
-                                <script>
-                                    joms_infinitescroll = +'1';
-                                    joms_autoloadtrigger = +'100';
-                                    joms_enable_refresh = +'1';
-                                </script>
-
-
-                                <script>joms_adagency = 1;</script>
-
-                            </div>
-                            <!-- end: .joms-stream__wrapper -->
-
-                        </div>
-                        <!-- end: .app-box-content -->
-                    </div>
+                   
                     <!-- end: .app-box -->
                     <!-- begin: .app-box -->
                     <div id="joms-app--aboutme-special" class="joms-tab__content joms-tab__content--stream  app-core" style="display: none;">
@@ -406,14 +266,14 @@
 
                                     <li>
                                         <h5 class="joms-text--light">Gender</h5>
-                                            @if (Model.Gender == true)
-                                            {
-                                                <span>Male</span>
-                                            }
-                                            else
-                                            {
-                                                <span>Female</span>
-                                            }
+                                        @if (Model.Gender == true)
+                                        {
+                                            <span>Male</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Female</span>
+                                        }
                                     </li>
 
                                     <li>
@@ -599,7 +459,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="joms-popup__action"><button class="joms-button--neutral joms-button--small joms-js--button-close">Close</button></div>
                 </div>
             </div><div class="mfp-preloader">Loading...</div>
@@ -616,7 +476,7 @@
         $(this).closest("body").append(htmlModalAddFan);
     });
 
-    
+
     $("body").delegate(".closeModalAddFriend", "click", function () {
         $(this).closest(".addFan").remove();
         $(this).closest("body").find(".opacityModalAddFan").remove();
@@ -685,6 +545,6 @@
    //    $(this).closest(".contentModalChangeAvatar").remove();
    //    $(this).closest("body").find(".opacityModalChangeAvatar").remove();
    //});
-   
-   
+
+
 </script>
