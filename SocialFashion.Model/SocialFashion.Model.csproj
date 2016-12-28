@@ -124,6 +124,9 @@
     <Compile Include="Models\Fans_GetFanByUser_Result.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GetAllStatusById_Result.cs">
+      <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Log.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>

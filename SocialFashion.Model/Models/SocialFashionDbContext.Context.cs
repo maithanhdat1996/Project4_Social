@@ -40,12 +40,12 @@ namespace SocialFashion.Model.Models
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
-        public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<StatusComment> StatusComments { get; set; }
-        public virtual DbSet<StatusLike> StatusLikes { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Fan> Fans { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<StatusComment> StatusComments { get; set; }
+        public virtual DbSet<StatusLike> StatusLikes { get; set; }
     
         public virtual ObjectResult<Users_List_Result> Users_List()
         {
@@ -173,6 +173,44 @@ namespace SocialFashion.Model.Models
                 new ObjectParameter("RecieverId", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notifications_GetNotiByRecieverId_Result>("Notifications_GetNotiByRecieverId", recieverIdParameter);
+        }
+    
+        public virtual ObjectResult<GetAllStatusById_Result> GetAllStatusById(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllStatusById_Result>("GetAllStatusById", userIdParameter);
+        }
+    
+        public virtual int User_Update(string id, string name, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var genderParameter = gender.HasValue ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(bool));
+    
+            var birthdateParameter = birthdate.HasValue ?
+                new ObjectParameter("Birthdate", birthdate) :
+                new ObjectParameter("Birthdate", typeof(System.DateTime));
+    
+            var aboutmeParameter = aboutme != null ?
+                new ObjectParameter("Aboutme", aboutme) :
+                new ObjectParameter("Aboutme", typeof(string));
+    
+            var websiteParameter = website != null ?
+                new ObjectParameter("Website", website) :
+                new ObjectParameter("Website", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("User_Update", idParameter, nameParameter, genderParameter, birthdateParameter, aboutmeParameter, websiteParameter);
         }
     }
 }
