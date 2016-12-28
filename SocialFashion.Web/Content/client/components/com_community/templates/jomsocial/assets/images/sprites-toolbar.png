@@ -308,7 +308,8 @@ margin-right:5px;
 
 </li>
 <li itemprop='name'  data-id="128" data-level="2">
-<a itemprop='url' class="" href="/69-super-user/profile"   data-target="#">Profile Page</a>
+<a itemprop='url' class="" href="/69-super-user/profile"   data-target="#">
+ Page</a>
 
 </li>
 </ul>

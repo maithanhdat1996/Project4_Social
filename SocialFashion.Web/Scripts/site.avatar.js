@@ -140,7 +140,7 @@ function saveAvatar() {
     }).done(function (data) {
         if (data.success === true) {
             
-            var url = "/User/Profile?id=" + data.id;
+            var url = "/User/UserProfile?id=" + data.id;
             window.location.href = url;
         } else {
             alert(data.errorMessage)

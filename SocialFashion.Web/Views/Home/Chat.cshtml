@@ -17,10 +17,10 @@
     $(function () {
         var currentUEmail = '@(uEmail)';
         var currentUName = '@(uName)';
-       
-            
+
+
             clearInterval(refreshId);
-           
+
 
             // Declare a proxy to reference the hub.
             var chatHub = $.connection.chatHub;
@@ -47,7 +47,7 @@
         }
 
         // ------------------------------------------------------------------Start All Chat ----------------------------------------------------------------------//
-       
+
 
         function registerEvents(chatHub, currentUserEmail) {
 
@@ -78,16 +78,14 @@
         function registerClientMethods(chatHub) {
             // Calls when user successfully logged in
             chatHub.client.onConnected = function (id, userName, allUsers, messages) {
-                console.log(allUsers);
+
 
                 $('#hdId').val(id);
                 $('#hdUserName').val(userName);
-         
+
 
                 // Add All Users
                 for (i = 0; i < allUsers.length; i++) {
-                    
-                    console.log(allUsers[i].Name);
                     AddUser(chatHub, allUsers[i].ConnectionId, allUsers[i].UserName, allUsers[i].Email, allUsers[i].ImageAvatar);
                 }
 
@@ -100,8 +98,8 @@
             }
 
             // On New User Connected
-            chatHub.client.onNewUserConnected = function (id, name, email,imageAvatar) {
-                AddUser(chatHub, id, name, email, imageAvatar);
+            chatHub.client.onNewUserConnected = function (id, name, email,image) {
+                AddUser(chatHub, id, name, email, image);
             }
 
             // On User Disconnected
@@ -135,8 +133,8 @@
                     if ($('#' + ctrId).length == 0) {
                         createPrivateChatWindow(chatHub, windowId, ctrId, fromUserName, userEmail, email);
                         chatHub.server.getPrivateMessage(userEmail, email, loadMesgCount).done(function (msg) {
-                           
-                            
+
+
                             for (i = 0; i < msg.length; i++) {
                                 $('#' + ctrId).find('#divMessage').append('<div class="message"><span class="userName">' + msg[i].userName + '</span>: ' + msg[i].message + '</div>');
                                 // set scrollbar
@@ -170,7 +168,7 @@
                 code = $('<div class="loginUser">' + name + "</div>");
             }
             else {
-                code = $('<a id="' + id + '" class="user" style="display:block" href="#"><img src=' + image + ' width="40px">' + name + '<a>');
+                code = $('<a id="' + id + '" class="user" ><img src="' + image + '" width="30px"/>' + name + '<a>');
                 $(code).click(function () {
                     var id = $(this).attr('id');
                     if (userEmail != email) {
@@ -182,7 +180,7 @@
             $("#divusers").append(code);
         }
 
-       
+
         // ------------------------------------------------------------------End All Chat ----------------------------------------------------------------------//
 
 
@@ -191,7 +189,7 @@
             console.log(1);
             var ctrId = 'private_' + id;
             if ($('#' + ctrId).length > 0) return;
-            
+
 
             createPrivateChatWindow(chatHub, id, ctrId, userName, userEmail, email);
 
@@ -327,4 +325,3 @@
     <input id="hdUserName" type="hidden" />
     <input id="hdEmailID" type="hidden" />
 </div>
-    

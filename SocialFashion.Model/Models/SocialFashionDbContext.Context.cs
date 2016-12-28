@@ -46,6 +46,7 @@ namespace SocialFashion.Model.Models
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<Fan> Fans { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
+        public virtual DbSet<Album> Albums { get; set; }
     
         public virtual ObjectResult<Users_List_Result> Users_List()
         {
@@ -175,7 +176,89 @@ namespace SocialFashion.Model.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notifications_GetNotiByRecieverId_Result>("Notifications_GetNotiByRecieverId", recieverIdParameter);
         }
     
-        public virtual int User_Update(string id, string name, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
+        public virtual int User_Update(string id, string email, string userName, string name, string password, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var genderParameter = gender.HasValue ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(bool));
+    
+            var birthdateParameter = birthdate.HasValue ?
+                new ObjectParameter("Birthdate", birthdate) :
+                new ObjectParameter("Birthdate", typeof(System.DateTime));
+    
+            var aboutmeParameter = aboutme != null ?
+                new ObjectParameter("Aboutme", aboutme) :
+                new ObjectParameter("Aboutme", typeof(string));
+    
+            var websiteParameter = website != null ?
+                new ObjectParameter("Website", website) :
+                new ObjectParameter("Website", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("User_Update", idParameter, emailParameter, userNameParameter, nameParameter, passwordParameter, genderParameter, birthdateParameter, aboutmeParameter, websiteParameter);
+        }
+    
+        public virtual int User_Update1(string id, string email, string userName, string name, string password, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var userNameParameter = userName != null ?
+                new ObjectParameter("UserName", userName) :
+                new ObjectParameter("UserName", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            var genderParameter = gender.HasValue ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(bool));
+    
+            var birthdateParameter = birthdate.HasValue ?
+                new ObjectParameter("Birthdate", birthdate) :
+                new ObjectParameter("Birthdate", typeof(System.DateTime));
+    
+            var aboutmeParameter = aboutme != null ?
+                new ObjectParameter("Aboutme", aboutme) :
+                new ObjectParameter("Aboutme", typeof(string));
+    
+            var websiteParameter = website != null ?
+                new ObjectParameter("Website", website) :
+                new ObjectParameter("Website", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("User_Update1", idParameter, emailParameter, userNameParameter, nameParameter, passwordParameter, genderParameter, birthdateParameter, aboutmeParameter, websiteParameter);
+        }
+    
+        public virtual int User_Update2(string id, string name, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
         {
             var idParameter = id != null ?
                 new ObjectParameter("Id", id) :
@@ -202,6 +285,35 @@ namespace SocialFashion.Model.Models
                 new ObjectParameter("Website", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("User_Update2", idParameter, nameParameter, genderParameter, birthdateParameter, aboutmeParameter, websiteParameter);
+        }
+    
+        public virtual int User_Update3(string id, string name, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
+        {
+            var idParameter = id != null ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(string));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var genderParameter = gender.HasValue ?
+                new ObjectParameter("Gender", gender) :
+                new ObjectParameter("Gender", typeof(bool));
+    
+            var birthdateParameter = birthdate.HasValue ?
+                new ObjectParameter("Birthdate", birthdate) :
+                new ObjectParameter("Birthdate", typeof(System.DateTime));
+    
+            var aboutmeParameter = aboutme != null ?
+                new ObjectParameter("Aboutme", aboutme) :
+                new ObjectParameter("Aboutme", typeof(string));
+    
+            var websiteParameter = website != null ?
+                new ObjectParameter("Website", website) :
+                new ObjectParameter("Website", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("User_Update3", idParameter, nameParameter, genderParameter, birthdateParameter, aboutmeParameter, websiteParameter);
         }
     }
 }

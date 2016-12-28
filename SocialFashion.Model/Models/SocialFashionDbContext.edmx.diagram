@@ -27,6 +27,7 @@
         <EntityTypeShape EntityType="SocialFashionModel.Message" Width="1.5" PointX="11.375" PointY="9.75" />
         <EntityTypeShape EntityType="SocialFashionModel.Fan" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="SocialFashionModel.Notification" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SocialFashionModel.Album" Width="1.5" PointX="12.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

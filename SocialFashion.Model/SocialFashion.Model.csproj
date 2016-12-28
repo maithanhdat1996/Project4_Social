@@ -88,6 +88,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Album.cs">
+      <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>

@@ -37,7 +37,7 @@ namespace SocialFashion.Web.Controllers
             }
         }
         // GET: User
-        public ActionResult Profile(string id)
+        public ActionResult UserProfile(string id)
         {
             using (SocialFashionDbContext db = new SocialFashionDbContext())
             {
@@ -82,7 +82,7 @@ namespace SocialFashion.Web.Controllers
 
                     ViewBag.IsFanOrOwn = 1;
                 }
-                
+
                 Users_GetById_Result userProfile = db.Users_GetById(id).FirstOrDefault();
                 ViewBag.birthDate = String.Format("{0:MM/dd/yyyy}", userProfile.Birthdate);
                 return View(userProfile);
@@ -152,9 +152,9 @@ namespace SocialFashion.Web.Controllers
             {
                 string protocol = collection["field12"];
                 string website = protocol + model.Website;
-                db.User_Update(model.Id, model.Name, model.Gender, model.Birthdate, model.Aboutme, website);
+                //db.User_Update(model.Id, model.Name, model.Gender, model.Birthdate, model.Aboutme, website);
             }
-            return RedirectToAction("Profile/"+model.Id);
+            return RedirectToAction("UserProfile/"+model.Id);
         }
 
         

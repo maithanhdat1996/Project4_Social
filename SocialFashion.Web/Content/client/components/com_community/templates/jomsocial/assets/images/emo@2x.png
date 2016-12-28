@@ -26,7 +26,8 @@
 .iseo-dashed{
 						border-bottom:1px dashed;
 						text-decoration:none !important;
-				  }
+				  }
+
         #community-tb-wrap.community-toolbar{
             background: 0;
         }
@@ -50,7 +51,19 @@
 	<script src="/plugins/system/t3/base-bs3/js/menu.js" type="text/javascript"></script>
 	<script src="/plugins/system/t3/base-bs3/js/nav-collapse.js" type="text/javascript"></script>
 	<script type="text/javascript">
-joms_base_url = 'http://socialize.jomsocial.com/';joms_assets_url = '/components/com_community/assets/';joms_script_url = '/components/com_community/assets/_release/js/';joms_lang = {"COM_COMMUNITY_PHOTO_DONE_TAGGING":"Done tagging","COM_COMMUNITY_SEARCH":"Search","COM_COMMUNITY_NO_COMMENTS_YET":"No comments yet.","COM_COMMUNITY_NO_LIKES_YET":"No comments yet.","COM_COMMUNITY_SELECT_ALL":"Select All","COM_COMMUNITY_UNSELECT_ALL":"Unselect All","COM_COMMUNITY_SHOW_MORE":"Show more","COM_COMMUNITY_SHOW_LESS":"Show less","COM_COMMUNITY_FILES_LOAD_MORE":"Load More Files","COM_COMMUNITY_INVITE_LOAD_MORE":"Load More Friends","COM_COMMUNITY_PRIVACY_PUBLIC":"Public","COM_COMMUNITY_PRIVACY_SITE_MEMBERS":"Site Members","COM_COMMUNITY_PRIVACY_FRIENDS":"Friends","COM_COMMUNITY_PRIVACY_ME":"Only Me","COM_COMMUNITY_MOVE_TO_ANOTHER_ALBUM":"Move to another album","COM_COMMUNITY_POPUP_LOADING":"Loading...","COM_COMMUNITY_CLOSE_BUTTON":"Close","COM_COMMUNITY_SELECT_FILE":"Select file","COM_COMMUNITY_AUTHENTICATION_KEY":"Authentication key","COM_COMMUNITY_NEXT":"Next","COM_COMMUNITY_SKIP_BUTTON":"Skip","COM_COMMUNITY_AUTHENTICATION_KEY_LABEL":"Insert your two-factor authentication key","COM_COMMUNITY_NO_RESULT_FOUND":"No result found.","COM_COMMUNITY_OF":"of","COM_COMMUNITY_EDITING_GROUP":"COM_COMMUNITY_EDITING_GROUP","COM_COMMUNITY_CHANGE_GROUP_OWNER":"COM_COMMUNITY_CHANGE_GROUP_OWNER","COM_COMMUNITY_CONFIGURATION_IMPORT_GROUPS":"COM_COMMUNITY_CONFIGURATION_IMPORT_GROUPS","COM_COMMUNITY_CONFIGURATION_IMPORT_USERS":"COM_COMMUNITY_CONFIGURATION_IMPORT_USERS","COM_COMMUNITY_EDITING_PHOTO":"COM_COMMUNITY_EDITING_PHOTO","COM_COMMUNITY_VIEW_PHOTO":"COM_COMMUNITY_VIEW_PHOTO","COM_COMMUNITY_EDITING_VIDEO":"COM_COMMUNITY_EDITING_VIDEO","COM_COMMUNITY_VIEW_VIDEO":"COM_COMMUNITY_VIEW_VIDEO","COM_COMMUNITY_SHOW_PREVIOUS_COMMENTS":"Show previous comments","wysiwyg":{"viewHTML":"View HTML","bold":"Bold","italic":"Italic","underline":"Underline","orderedList":"Ordered list","unorderedList":"Unordered list","link":"Link","createLink":"Insert link","unlink":"Remove link","image":"Image","insertImage":"Insert image","description":"Description","title":"Title","text":"Text","submit":"Confirm","reset":"Cancel"}};joms_my_id = 0;joms_user_id = 0;joms_page = 'frontpage';joms_prev_comment_load = +'10';joms_use_tfa = false;joms_gmap_key = '';joms_videoplayer_native = 1;joms_current_url = "http://socialize.jomsocial.com/";joms_prev_comment_load = +'10';
+joms_base_url = 'http://socialize.jomsocial.com/';
+joms_assets_url = '/components/com_community/assets/';
+joms_script_url = '/components/com_community/assets/_release/js/';
+joms_lang = {"COM_COMMUNITY_PHOTO_DONE_TAGGING":"Done tagging","COM_COMMUNITY_SEARCH":"Search","COM_COMMUNITY_NO_COMMENTS_YET":"No comments yet.","COM_COMMUNITY_NO_LIKES_YET":"No comments yet.","COM_COMMUNITY_SELECT_ALL":"Select All","COM_COMMUNITY_UNSELECT_ALL":"Unselect All","COM_COMMUNITY_SHOW_MORE":"Show more","COM_COMMUNITY_SHOW_LESS":"Show less","COM_COMMUNITY_FILES_LOAD_MORE":"Load More Files","COM_COMMUNITY_INVITE_LOAD_MORE":"Load More Friends","COM_COMMUNITY_PRIVACY_PUBLIC":"Public","COM_COMMUNITY_PRIVACY_SITE_MEMBERS":"Site Members","COM_COMMUNITY_PRIVACY_FRIENDS":"Friends","COM_COMMUNITY_PRIVACY_ME":"Only Me","COM_COMMUNITY_MOVE_TO_ANOTHER_ALBUM":"Move to another album","COM_COMMUNITY_POPUP_LOADING":"Loading...","COM_COMMUNITY_CLOSE_BUTTON":"Close","COM_COMMUNITY_SELECT_FILE":"Select file","COM_COMMUNITY_AUTHENTICATION_KEY":"Authentication key","COM_COMMUNITY_NEXT":"Next","COM_COMMUNITY_SKIP_BUTTON":"Skip","COM_COMMUNITY_AUTHENTICATION_KEY_LABEL":"Insert your two-factor authentication key","COM_COMMUNITY_NO_RESULT_FOUND":"No result found.","COM_COMMUNITY_OF":"of","COM_COMMUNITY_EDITING_GROUP":"COM_COMMUNITY_EDITING_GROUP","COM_COMMUNITY_CHANGE_GROUP_OWNER":"COM_COMMUNITY_CHANGE_GROUP_OWNER","COM_COMMUNITY_CONFIGURATION_IMPORT_GROUPS":"COM_COMMUNITY_CONFIGURATION_IMPORT_GROUPS","COM_COMMUNITY_CONFIGURATION_IMPORT_USERS":"COM_COMMUNITY_CONFIGURATION_IMPORT_USERS","COM_COMMUNITY_EDITING_PHOTO":"COM_COMMUNITY_EDITING_PHOTO","COM_COMMUNITY_VIEW_PHOTO":"COM_COMMUNITY_VIEW_PHOTO","COM_COMMUNITY_EDITING_VIDEO":"COM_COMMUNITY_EDITING_VIDEO","COM_COMMUNITY_VIEW_VIDEO":"COM_COMMUNITY_VIEW_VIDEO","COM_COMMUNITY_SHOW_PREVIOUS_COMMENTS":"Show previous comments","wysiwyg":{"viewHTML":"View HTML","bold":"Bold","italic":"Italic","underline":"Underline","orderedList":"Ordered list","unorderedList":"Unordered list","link":"Link","createLink":"Insert link","unlink":"Remove link","image":"Image","insertImage":"Insert image","description":"Description","title":"Title","text":"Text","submit":"Confirm","reset":"Cancel"}};
+joms_my_id = 0;
+joms_user_id = 0;
+joms_page = 'frontpage';
+joms_prev_comment_load = +'10';
+joms_use_tfa = false;
+joms_gmap_key = '';
+joms_videoplayer_native = 1;
+joms_current_url = "http://socialize.jomsocial.com/";
+joms_prev_comment_load = +'10';
 	</script>
 	<script type='text/javascript'>
                 /*<![CDATA[*/

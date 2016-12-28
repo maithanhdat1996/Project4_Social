@@ -524,10 +524,11 @@
     <Content Include="Content\client\plugins\system\t3\base-bs3\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\client\plugins\system\t3\base-bs3\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\client\plugins\system\t3\base-bs3\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery.form.min.js.map" />
@@ -594,12 +595,13 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Account\NavbarLoginRightPartial.cshtml" />
     <Content Include="Views\Home\ToolbarDesktopPartial.cshtml" />
-    <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\User\AllMember.cshtml" />
     <Content Include="Views\Avatar\Upload.cshtml" />
     <Content Include="Views\Avatar\_Upload.cshtml" />
     <Content Include="Web1.config" />
     <Content Include="Views\Members\Index.cshtml" />
+    <Content Include="Views\User\ProfileEdit.cshtml" />
+    <Content Include="Views\User\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -616,7 +618,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SocialFashion.Common\SocialFashion.Common.csproj">
