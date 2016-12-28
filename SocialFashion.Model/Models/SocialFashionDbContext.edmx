@@ -240,7 +240,7 @@
           </Key>
           <Property Name="StatusCommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Comment" Type="text" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
@@ -250,7 +250,7 @@
           </Key>
           <Property Name="StatusLikeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="Type" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -332,6 +332,9 @@
           <Parameter Name="SenderId" Type="nvarchar" Mode="In" />
           <Parameter Name="RequestId" Type="nvarchar" Mode="In" />
           <Parameter Name="ReplyStatus" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="GetAllStatusById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Messages_GetCountByRecieverEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RecieverEmail" Type="nvarchar" Mode="In" />
@@ -571,37 +574,6 @@
           <Property Name="MetaDescription" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="Status">
-          <Key>
-            <PropertyRef Name="StatusId" />
-          </Key>
-          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Privacy" Type="Byte" Nullable="false" />
-          <Property Name="MoreImages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="StatusComment">
-          <Key>
-            <PropertyRef Name="StatusCommentId" />
-          </Key>
-          <Property Name="StatusCommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="StatusLike">
-          <Key>
-            <PropertyRef Name="StatusLikeId" />
-          </Key>
-          <Property Name="StatusLikeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="Byte" Nullable="false" />
-        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -648,9 +620,6 @@
           <EntitySet Name="ProductDetails" EntityType="Self.ProductDetail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="StatusComments" EntityType="Self.StatusComment" />
-          <EntitySet Name="StatusLikes" EntityType="Self.StatusLike" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -706,38 +675,21 @@
           <FunctionImport Name="Notifications_GetNotiByRecieverId" ReturnType="Collection(SocialFashionModel.Notifications_GetNotiByRecieverId_Result)">
           <Parameter Name="RecieverId" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Status" EntityType="SocialFashionModel.Status" />
+          <EntitySet Name="StatusComments" EntityType="SocialFashionModel.StatusComment" />
+          <EntitySet Name="StatusLikes" EntityType="SocialFashionModel.StatusLike" />
+          <FunctionImport Name="GetAllStatusById" ReturnType="Collection(SocialFashionModel.GetAllStatusById_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="User_Update">
             <Parameter Name="Id" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-            <Parameter Name="Gender" Mode="In" Type="Boolean" />
-            <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
-            <Parameter Name="Aboutme" Mode="In" Type="String" />
-            <Parameter Name="Website" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="User_Update1">
-            <Parameter Name="Id" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
             <Parameter Name="Gender" Mode="In" Type="Boolean" />
             <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
             <Parameter Name="Aboutme" Mode="In" Type="String" />
             <Parameter Name="Website" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="User_Update2">
-            <Parameter Name="Id" Mode="In" Type="String" />
-            <Parameter Name="Name" Mode="In" Type="String" />
-            <Parameter Name="Gender" Mode="In" Type="Boolean" />
-            <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
-            <Parameter Name="Aboutme" Mode="In" Type="String" />
-            <Parameter Name="Website" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="Albums" EntityType="SocialFashionModel.Album" />
-          <FunctionImport Name="User_Update3">
             <Parameter Name="Id" Mode="In" Type="String" />
             <Parameter Name="Name" Mode="In" Type="String" />
             <Parameter Name="Gender" Mode="In" Type="Boolean" />
@@ -878,6 +830,70 @@
           <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
           <Property Type="Byte" Name="Type" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="AspNetUsers_SearchUserByKey_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Hometown" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="EmailConfirmed" Nullable="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="true" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="Boolean" Name="PhoneNumberConfirmed" Nullable="false" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="false" />
+          <Property Type="Int32" Name="AccessFailedCount" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="DateTime" Name="Birthdate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Aboutme" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Gender" Nullable="true" />
+          <Property Type="String" Name="ConnectionId" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsOnline" Nullable="true" />
+          <Property Type="String" Name="ImageAvartar" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ImageCover" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Website" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Privacy" Type="Byte" Nullable="false" />
+          <Property Name="MoreImages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StatusComment">
+          <Key>
+            <PropertyRef Name="StatusCommentId" />
+          </Key>
+          <Property Name="StatusCommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="StatusLike">
+          <Key>
+            <PropertyRef Name="StatusLikeId" />
+          </Key>
+          <Property Name="StatusLikeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="GetAllStatusById_Result">
+          <Property Type="Int32" Name="StatusId" Nullable="false" />
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ProductId" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Privacy" Nullable="false" />
+          <Property Type="String" Name="MoreImages" Nullable="true" />
+          <Property Type="String" Name="Content" Nullable="true" MaxLength="500" />
         </ComplexType>
         <EntityType Name="Album">
           <Key>
@@ -1071,40 +1087,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="SocialFashionModel.Status">
-              <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Content" ColumnName="Content" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Privacy" ColumnName="Privacy" />
-                <ScalarProperty Name="MoreImages" ColumnName="MoreImages" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatusComments">
-            <EntityTypeMapping TypeName="SocialFashionModel.StatusComment">
-              <MappingFragment StoreEntitySet="StatusComments">
-                <ScalarProperty Name="StatusCommentId" ColumnName="StatusCommentId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatusLikes">
-            <EntityTypeMapping TypeName="SocialFashionModel.StatusLike">
-              <MappingFragment StoreEntitySet="StatusLikes">
-                <ScalarProperty Name="StatusLikeId" ColumnName="StatusLikeId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="SocialFashionModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
@@ -1282,19 +1264,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="Albums">
-            <EntityTypeMapping TypeName="SocialFashionModel.Album">
-              <MappingFragment StoreEntitySet="Albums">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PhotoCount" ColumnName="PhotoCount" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="User_Update3" FunctionName="SocialFashionModel.Store.User_Update" />
+          <FunctionImportMapping FunctionImportName="User_Update2" FunctionName="SocialFashionModel.Store.User_Update" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

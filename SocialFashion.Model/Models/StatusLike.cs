@@ -16,7 +16,7 @@ namespace SocialFashion.Model.Models
     {
         public int StatusLikeId { get; set; }
         public int StatusId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public byte Type { get; set; }
     }
 }

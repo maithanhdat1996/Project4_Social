@@ -10,14 +10,15 @@
 namespace SocialFashion.Model.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class StatusComment
+    public partial class GetAllStatusById_Result
     {
-        public int StatusCommentId { get; set; }
         public int StatusId { get; set; }
         public string UserId { get; set; }
-        public string Comment { get; set; }
+        public Nullable<int> ProductId { get; set; }
         public System.DateTime Date { get; set; }
+        public byte Privacy { get; set; }
+        public string MoreImages { get; set; }
+        public string Content { get; set; }
     }
 }

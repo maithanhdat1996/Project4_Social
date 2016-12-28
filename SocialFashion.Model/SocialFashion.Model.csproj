@@ -106,6 +106,9 @@
     <Compile Include="Models\AspNetUsers_CheckAddFriend_Result.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetUsers_SearchUserByKey_Result.cs">
+      <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Branch.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>
@@ -122,6 +125,9 @@
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Fans_GetFanByUser_Result.cs">
+      <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GetAllStatusById_Result.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Log.cs">
