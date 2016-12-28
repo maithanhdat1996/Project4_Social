@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace SocialFashion.Web.Controllers
 {
-    [Authorize(Roles = "user")]
+  
     public class HomeController : Controller
     {
         SocialFashionDbContext db;
@@ -29,6 +29,11 @@ namespace SocialFashion.Web.Controllers
         }
 
         public ActionResult ToolbarDesktopPartial()
+        {
+            return PartialView();
+        }
+
+        public ActionResult SearchUsersByKeyWord()
         {
             return PartialView();
         }
@@ -98,6 +103,18 @@ namespace SocialFashion.Web.Controllers
                 int? result = db.Fans_GetCountFanByRequestId(currentUserId).FirstOrDefault();
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetMemberSearchData(string searchString)
+        {
+            using (SocialFashionDbContext db = new SocialFashionDbContext())
+            {
+                List<AspNetUsers_SearchUserByKey_Result> result = db.AspNetUsers_SearchUserByKey(searchString).ToList();
+                return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            }
+
+
         }
     }
 }

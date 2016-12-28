@@ -301,6 +301,9 @@
         <Function Name="AspNetUsers_CheckAddFriend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RequestId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="AspNetUsers_SearchUserByKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Fans_GetCountFanByRequestId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RequestId" Type="nvarchar" Mode="In" />
         </Function>
@@ -333,6 +336,14 @@
         </Function>
         <Function Name="Notifications_GetNotiByRecieverId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RecieverId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="User_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id" Type="nvarchar" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Gender" Type="bit" Mode="In" />
+          <Parameter Name="Birthdate" Type="datetime" Mode="In" />
+          <Parameter Name="Aboutme" Type="nvarchar" Mode="In" />
+          <Parameter Name="Website" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Users_GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
@@ -778,7 +789,7 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
           <Property Type="DateTime" Name="Birthdate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Aboutme" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="Website" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Website" Nullable="true" MaxLength="250" />
           <Property Type="Boolean" Name="Gender" Nullable="true" />
           <Property Type="String" Name="ConnectionId" Nullable="true" MaxLength="100" />
           <Property Type="Boolean" Name="IsOnline" Nullable="true" />
@@ -788,6 +799,8 @@
           <Property Type="Int16" Name="Status" Nullable="true" />
           <Property Type="DateTime" Name="FriendShipDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="Message" Nullable="true" MaxLength="5000" />
+          <Property Type="String" Name="ImageAvartar" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ImageCover" Nullable="true" MaxLength="250" />
         </ComplexType>
         <ComplexType Name="Messages_GetLastMessageByRecieverEmail_Result">
           <Property Type="Int32" Name="MessageId" Nullable="false" />
@@ -817,6 +830,30 @@
           <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
           <Property Type="Byte" Name="Type" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="AspNetUsers_SearchUserByKey_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Hometown" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="EmailConfirmed" Nullable="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="true" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="Boolean" Name="PhoneNumberConfirmed" Nullable="false" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="false" />
+          <Property Type="Int32" Name="AccessFailedCount" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="DateTime" Name="Birthdate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Aboutme" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Gender" Nullable="true" />
+          <Property Type="String" Name="ConnectionId" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsOnline" Nullable="true" />
+          <Property Type="String" Name="ImageAvartar" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ImageCover" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Website" Nullable="true" MaxLength="250" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1159,6 +1196,8 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="FriendShipDate" ColumnName="FriendShipDate" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ImageAvartar" ColumnName="ImageAvartar" />
+                <ScalarProperty Name="ImageCover" ColumnName="ImageCover" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

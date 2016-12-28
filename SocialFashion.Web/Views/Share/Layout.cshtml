@@ -44,19 +44,49 @@
     <script src="/Content/client/components/com_community/assets/release_32/js/bundle.js" type="text/javascript"></script>
     <script src="/Content/client/components/com_community/assets/vendors/toolkit.min.js" type="text/javascript"></script>
 
-    <script src="/Scripts/jquery-1.10.2.min.js"></script>
+
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
 
     <script src="/Content/client/plugins/system/t3/base-bs3/bootstrap/js/bootstrap.js" type="text/javascript"></script>
     <script src="/Content/client/plugins/system/t3/base-bs3/js/script.js" type="text/javascript"></script>
     <script src="/Content/client/plugins/system/t3/base-bs3/js/menu.js" type="text/javascript"></script>
     <script src="/Content/client/plugins/system/t3/base-bs3/js/nav-collapse.js" type="text/javascript"></script>
     <script type="text/javascript" src="/Content/client/plugins/system/jomsocial.system/pc_includes/ajax_1.5.pack.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script src="/Scripts/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="/Content/datepicker.css" type="text/css" />
 
     <style type="text/css">
         video {
             width: 100% !important;
             height: auto !important;
         }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $("#a-Stream").click(function (event) {
+                event.preventDefault();
+                $("#a-Stream").addClass("active");
+                $("#joms-app--feeds-special").css("display", "block");
+                $("#a-Aboutme").removeClass("active");
+                $("#joms-app--aboutme-special").css("display", "none");
+            });
+            $("#a-Aboutme").click(function (event) {
+                event.preventDefault();
+                $("#a-Stream").removeClass("active");
+                $("#joms-app--feeds-special").css("display", "none");
+                $("#a-Aboutme").addClass("active");
+                $("#joms-app--aboutme-special").css("display", "block");
+            });
+            $(function () {
+                $('#txtDOB').datepicker({ format: "dd//mm/yyyy" }).on('changeDate', function (ev) {
+                    $(this).datepicker('hide');
+                });
+            });
+        });
+    </script>
+    <style>
     </style>
 
 
@@ -136,17 +166,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <form class="navbar-form navbar-left" role="search" name="search" id="cFormSearch" method="get" action="/search/display">
-                                <div class="form-group form-group--search">
-                                    <input type="text" class="form-control" placeholder="Search" id="keyword" name="q">
-                                </div>
-                                <button type="submit" class="btn btn-default">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-
-                                <input type="hidden" name="option" value="com_community" />
-                                <input type="hidden" name="view" value="search" />
-                            </form>
+                            @{Html.RenderAction("SearchUsersByKeyWord", "Home");}
                             @{Html.RenderAction("NavbarLoginRightPartial", "Account");}
                         </div><!-- /.navbar-collapse -->
                         <!-- Mobile toolbar -->
@@ -268,14 +288,7 @@
                         </div>
                     </div>
 
-                    <script type="text/javascript">
-                        jQuery('#t3-community-toolbar').tooltip({
-                            selector: "a[rel=tooltip]"
-                        });
-                        jQuery('.search-input-toggle').click(function () {
-                            jQuery('.menu-search').toggleClass('in');
-                        });
-                    </script>
+                    
 
                 </nav>
                                 }
@@ -370,14 +383,7 @@
                                             </div>
                                         </div>
 
-                                        <script type="text/javascript">
-                                            jQuery('#t3-community-toolbar').tooltip({
-                                                selector: "a[rel=tooltip]"
-                                            });
-                                            jQuery('.search-input-toggle').click(function () {
-                                                jQuery('.menu-search').toggleClass('in');
-                                            });
-                                        </script>
+                                        
 
                                     </nav>
                                                 }
@@ -387,7 +393,7 @@
 
 
         <div id="t3-mainbody" class="container t3-mainbody">
-            <div class="row">
+            <div class="row" style="">
 
                 <!-- MAIN CONTENT -->
                 <div id="t3-content" class="t3-content col-xs-12 col-sm-6  col-md-7">
@@ -606,26 +612,7 @@
                                                 </ul>
                                             </div>
 
-                                            <div>
-                                                <form action="@Url.Action("Add","Status")" method="post" enctype="multipart/form-data">
-                                                    <textarea class="form-control" cols="5" name="txtContent" id="txtContent"></textarea>
-                                                    <div class="row" id="showimage">
-                                                    </div>
-                                                    <div class="col-lg-2">
-                                                        <input type="file" class="form-control" multiple="multiple" name="FileUpload" id="FileUpload" />
-                                                    </div>
-                                                    <div class="col-lg-2 right col-lg-offset-6">
-                                                        <select name="sltStatus" id="sltStatus" class="form-control">
-                                                            <option value="0">Public</option>
-                                                            <option value="1">Private</option>
-                                                            <option value="2">Only Me</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-lg-2 col-lg-offset-0">
-                                                        <button type="submit" class="form-control">Post</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                           
                                             }
                                 }
                                 
@@ -898,6 +885,7 @@
                         </div>
                     </div>
                 </div>
+                <div style="clear:both"></div>
                 <!-- //SIDEBAR RIGHT -->
                 <!-- CHAT RIGHT -->
                 @if (Request.IsAuthenticated)

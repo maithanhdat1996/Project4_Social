@@ -5,11 +5,37 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using SocialFashion.Web.Models;
+using System.Threading.Tasks;
+
 namespace SocialFashion.Web.Controllers
 {
-    [Authorize(Roles = "user")]
+   
     public class UserController : Controller
     {
+        private ApplicationUserManager _userManager;
+        public UserController()
+        {
+
+        }
+
+        public UserController(ApplicationUserManager userManager)
+        {
+            UserManager = userManager;
+        }
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: User
         public ActionResult Profile(string id)
         {
@@ -26,7 +52,7 @@ namespace SocialFashion.Web.Controllers
 
                     if (userFan != null)
                     {
-                        if(userFan.SenderId == currentUserId)
+                        if (userFan.SenderId == currentUserId)
                         {
                             ViewBag.FriendStatus = userFan.Status;
                             ViewBag.checkHaveAddFriend = 0;
@@ -44,7 +70,7 @@ namespace SocialFashion.Web.Controllers
                                 ViewBag.checkHaveAddFriend = 0;
                             }
                         }
-                        
+
                     }
                     else
                     {
@@ -53,25 +79,85 @@ namespace SocialFashion.Web.Controllers
                         ViewBag.FriendStatus = -1;
                     }
 
-                    
-                     ViewBag.IsFanOrOwn = 1;
-                }
 
+                    ViewBag.IsFanOrOwn = 1;
+                }
+                
                 Users_GetById_Result userProfile = db.Users_GetById(id).FirstOrDefault();
+                ViewBag.birthDate = String.Format("{0:MM/dd/yyyy}", userProfile.Birthdate);
                 return View(userProfile);
             }
 
         }
 
-        public ActionResult AllMember()
-        {
+        public ActionResult ProfileEdit(string id) {
             using (SocialFashionDbContext db = new SocialFashionDbContext())
             {
-                List<Users_List_Result> listMember = db.Users_List().ToList();
-                return View(listMember);
-            }
+                var currentUserId = User.Identity.GetUserId();
+                if (Object.Equals(currentUserId, id))
+                {
+                    ViewBag.IsFanOrOwn = 0;
+                }
+                else
+                {
+                    var userFan = db.Fans_GetFanByUser(currentUserId, id).FirstOrDefault();
 
+                    if (userFan != null)
+                    {
+                        if (userFan.SenderId == currentUserId)
+                        {
+                            ViewBag.FriendStatus = userFan.Status;
+                            ViewBag.checkHaveAddFriend = 0;
+                        }
+                        if (userFan.RequestId == currentUserId)
+                        {
+                            ViewBag.FriendStatus = userFan.Status;
+                            AspNetUsers_CheckAddFriend_Result checkHaveAddFriend = db.AspNetUsers_CheckAddFriend(id).FirstOrDefault();
+                            if (checkHaveAddFriend != null)
+                            {
+                                ViewBag.checkHaveAddFriend = 1;
+                            }
+                            else
+                            {
+                                ViewBag.checkHaveAddFriend = 0;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        ViewBag.checkHaveAddFriend = 0;
+                        ViewBag.IsAddFan = 1;
+                        ViewBag.FriendStatus = -1;
+                    }
+
+
+                    ViewBag.IsFanOrOwn = 1;
+                }
+
+                Users_GetById_Result userProfile = db.Users_GetById(id).FirstOrDefault();
+                ViewBag.birthDate = String.Format("{0:MM/dd/yyyy}", userProfile.Birthdate);
+                string[] strs = userProfile.Website.Split('/');
+                userProfile.Website = strs.Last();
+                ViewBag.protocol = strs.First();
+                return View(userProfile);
+            }
         }
+
+        [HttpPost]
+        public ActionResult ProfileEdit(Users_GetById_Result model, FormCollection collection)
+        {
+            
+            using (SocialFashionDbContext db = new SocialFashionDbContext())
+            {
+                string protocol = collection["field12"];
+                string website = protocol + model.Website;
+                db.User_Update(model.Id, model.Name, model.Gender, model.Birthdate, model.Aboutme, website);
+            }
+            return RedirectToAction("Profile/"+model.Id);
+        }
+
+        
 
         [HttpPost]
         public JsonResult AddFriend(string id, string msg)

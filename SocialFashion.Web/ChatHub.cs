@@ -11,7 +11,7 @@ namespace SocialFashion.Web
     public class ChatHub : Hub
     {
         public static string emailIDLoaded = "";
-
+         List<UserDetail> lstUserConnected = new List<UserDetail>();
         #region Connect
         public void Connect(string userName, string email)
         {
@@ -37,12 +37,25 @@ namespace SocialFashion.Web
                     item1.ConnectionId = id;
                     item1.IsOnline = true;
                     dc.SaveChanges();
-                    var connectedUsers = dc.AspNetUsers.Where(x => x.IsOnline == true).ToList();
+
+                    var connectedUsers = dc.AspNetUsers.Where(x => x.IsOnline == true && x.Email != email).ToList();
+                    foreach (var userConnect in connectedUsers)
+                    {
+                        UserDetail u = new UserDetail();
+                        u.ConnectionId = userConnect.ConnectionId;
+                        u.Email = userConnect.Email;
+                        u.UserName = userConnect.Name;
+                        u.ImageAvatar = userConnect.ImageAvartar;
+                        lstUserConnected.Add(u);
+                    }
                     Clients.All.onUserDisconnectedExisting(item1.ConnectionId, item1.UserName);
-                    Clients.Caller.onConnected(id, userName, connectedUsers,"");
+                    Clients.Caller.onConnected(id, userName, lstUserConnected, "");
                 }
+                var newUserConnected = dc.AspNetUsers.FirstOrDefault(x => x.Email == email && x.IsOnline == true);
+                var nameUser = newUserConnected.Name;
+                var imageAvatar = newUserConnected.ImageAvartar;
                 // send to all except caller client
-                Clients.AllExcept(id).onNewUserConnected(id, userName, email);
+                Clients.AllExcept(id).onNewUserConnected(id, nameUser, email, imageAvatar);
             }
         }
         #endregion
