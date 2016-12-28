@@ -41,5 +41,29 @@ namespace SocialFashion.Web.Controllers
             return View(paginationSet);
         }
 
+     
+        public ActionResult MoreResult(int page = 1, string sort = "", string keyword = "")
+        {
+            int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
+
+            int totalRow = 0;
+
+            var aspNetUserModel = _aspNetUserService.GetAllMembersByKeywords(keyword, page, pageSize, sort, out totalRow);
+
+            int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+
+            var paginationSet = new PaginationSet<AspNetUser>()
+            {
+                Items = aspNetUserModel,
+                MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+                Page = page,
+                TotalCount = totalRow,
+                TotalPages = totalPage
+            };
+
+            return View(paginationSet);
+        }
+
     }
 }

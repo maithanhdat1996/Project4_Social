@@ -44,8 +44,8 @@ namespace SocialFashion.Model.Models
         public virtual DbSet<Fan> Fans { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<StatusComment> StatusComments { get; set; }
         public virtual DbSet<StatusLike> StatusLikes { get; set; }
+        public virtual DbSet<StatusComment> StatusComments { get; set; }
     
         public virtual ObjectResult<Users_List_Result> Users_List()
         {
@@ -175,15 +175,6 @@ namespace SocialFashion.Model.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Notifications_GetNotiByRecieverId_Result>("Notifications_GetNotiByRecieverId", recieverIdParameter);
         }
     
-        public virtual ObjectResult<GetAllStatusById_Result> GetAllStatusById(string userId)
-        {
-            var userIdParameter = userId != null ?
-                new ObjectParameter("UserId", userId) :
-                new ObjectParameter("UserId", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllStatusById_Result>("GetAllStatusById", userIdParameter);
-        }
-    
         public virtual int User_Update(string id, string name, Nullable<bool> gender, Nullable<System.DateTime> birthdate, string aboutme, string website)
         {
             var idParameter = id != null ?
@@ -211,6 +202,33 @@ namespace SocialFashion.Model.Models
                 new ObjectParameter("Website", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("User_Update", idParameter, nameParameter, genderParameter, birthdateParameter, aboutmeParameter, websiteParameter);
+        }
+    
+        public virtual ObjectResult<AspNetUsers_SearchUserByKey_Result> AspNetUsers_SearchUserByKey(string keyword)
+        {
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("Keyword", keyword) :
+                new ObjectParameter("Keyword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AspNetUsers_SearchUserByKey_Result>("AspNetUsers_SearchUserByKey", keywordParameter);
+        }
+    
+        public virtual ObjectResult<GetAllStatusById_Result> GetAllStatusById(string userId)
+        {
+            var userIdParameter = userId != null ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllStatusById_Result>("GetAllStatusById", userIdParameter);
+        }
+    
+        public virtual ObjectResult<AspNetUsers_SearchUserByKeyTop10_Result> AspNetUsers_SearchUserByKeyTop10(string keyword)
+        {
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("Keyword", keyword) :
+                new ObjectParameter("Keyword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AspNetUsers_SearchUserByKeyTop10_Result>("AspNetUsers_SearchUserByKeyTop10", keywordParameter);
         }
     }
 }

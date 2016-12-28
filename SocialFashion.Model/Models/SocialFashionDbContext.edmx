@@ -239,7 +239,7 @@
           </Key>
           <Property Name="StatusLikeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Type" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -301,6 +301,12 @@
         <Function Name="AspNetUsers_CheckAddFriend" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RequestId" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="AspNetUsers_SearchUserByKey" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="AspNetUsers_SearchUserByKeyTop10" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Fans_GetCountFanByRequestId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RequestId" Type="nvarchar" Mode="In" />
         </Function>
@@ -336,14 +342,6 @@
         </Function>
         <Function Name="Notifications_GetNotiByRecieverId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RecieverId" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="User_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="Id" Type="nvarchar" Mode="In" />
-          <Parameter Name="Name" Type="nvarchar" Mode="In" />
-          <Parameter Name="Gender" Type="bit" Mode="In" />
-          <Parameter Name="Birthdate" Type="datetime" Mode="In" />
-          <Parameter Name="Aboutme" Type="nvarchar" Mode="In" />
-          <Parameter Name="Website" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Users_GetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="nvarchar" Mode="In" />
@@ -664,11 +662,6 @@
           <Parameter Name="RecieverId" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Status" EntityType="SocialFashionModel.Status" />
-          <EntitySet Name="StatusComments" EntityType="SocialFashionModel.StatusComment" />
-          <EntitySet Name="StatusLikes" EntityType="SocialFashionModel.StatusLike" />
-          <FunctionImport Name="GetAllStatusById" ReturnType="Collection(SocialFashionModel.GetAllStatusById_Result)">
-          <Parameter Name="UserId" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="User_Update">
             <Parameter Name="Id" Mode="In" Type="String" />
             <Parameter Name="Name" Mode="In" Type="String" />
@@ -676,6 +669,17 @@
             <Parameter Name="Birthdate" Mode="In" Type="DateTime" />
             <Parameter Name="Aboutme" Mode="In" Type="String" />
             <Parameter Name="Website" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AspNetUsers_SearchUserByKey" ReturnType="Collection(SocialFashionModel.AspNetUsers_SearchUserByKey_Result)">
+          <Parameter Name="Keyword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllStatusById" ReturnType="Collection(SocialFashionModel.GetAllStatusById_Result)">
+          <Parameter Name="UserId" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="StatusLikes" EntityType="SocialFashionModel.StatusLike" />
+          <EntitySet Name="StatusComments" EntityType="SocialFashionModel.StatusComment" />
+          <FunctionImport Name="AspNetUsers_SearchUserByKeyTop10" ReturnType="Collection(SocialFashionModel.AspNetUsers_SearchUserByKeyTop10_Result)">
+            <Parameter Name="Keyword" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Message">
@@ -811,6 +815,18 @@
           <Property Type="Byte" Name="Type" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
         </ComplexType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Privacy" Type="Byte" Nullable="false" />
+          <Property Name="MoreImages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
         <ComplexType Name="AspNetUsers_SearchUserByKey_Result">
           <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
           <Property Type="String" Name="Hometown" Nullable="true" />
@@ -835,17 +851,23 @@
           <Property Type="String" Name="ImageCover" Nullable="true" MaxLength="250" />
           <Property Type="String" Name="Website" Nullable="true" MaxLength="250" />
         </ComplexType>
-        <EntityType Name="Status">
+        <ComplexType Name="GetAllStatusById_Result">
+          <Property Type="Int32" Name="StatusId" Nullable="false" />
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ProductId" Nullable="true" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Privacy" Nullable="false" />
+          <Property Type="String" Name="MoreImages" Nullable="true" />
+          <Property Type="String" Name="Content" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="StatusLike">
           <Key>
-            <PropertyRef Name="StatusId" />
+            <PropertyRef Name="StatusLikeId" />
           </Key>
-          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusLikeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="ProductId" Type="Int32" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Privacy" Type="Byte" Nullable="false" />
-          <Property Name="MoreImages" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="StatusComment">
           <Key>
@@ -857,23 +879,29 @@
           <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="StatusLike">
-          <Key>
-            <PropertyRef Name="StatusLikeId" />
-          </Key>
-          <Property Name="StatusLikeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="Byte" Nullable="false" />
-        </EntityType>
-        <ComplexType Name="GetAllStatusById_Result">
-          <Property Type="Int32" Name="StatusId" Nullable="false" />
-          <Property Type="String" Name="UserId" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ProductId" Nullable="true" />
-          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
-          <Property Type="Byte" Name="Privacy" Nullable="false" />
-          <Property Type="String" Name="MoreImages" Nullable="true" />
-          <Property Type="String" Name="Content" Nullable="true" MaxLength="500" />
+        <ComplexType Name="AspNetUsers_SearchUserByKeyTop10_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Hometown" Nullable="true" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="EmailConfirmed" Nullable="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="true" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="Boolean" Name="PhoneNumberConfirmed" Nullable="false" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="false" />
+          <Property Type="Int32" Name="AccessFailedCount" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="DateTime" Name="Birthdate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Aboutme" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="Gender" Nullable="true" />
+          <Property Type="String" Name="ConnectionId" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="IsOnline" Nullable="true" />
+          <Property Type="String" Name="ImageAvartar" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="ImageCover" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Website" Nullable="true" MaxLength="250" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1246,27 +1274,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StatusComments">
-            <EntityTypeMapping TypeName="SocialFashionModel.StatusComment">
-              <MappingFragment StoreEntitySet="StatusComments">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="StatusCommentId" ColumnName="StatusCommentId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StatusLikes">
-            <EntityTypeMapping TypeName="SocialFashionModel.StatusLike">
-              <MappingFragment StoreEntitySet="StatusLikes">
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="StatusLikeId" ColumnName="StatusLikeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AspNetUsers_SearchUserByKey" FunctionName="SocialFashionModel.Store.AspNetUsers_SearchUserByKey">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SocialFashionModel.AspNetUsers_SearchUserByKey_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hometown" ColumnName="Hometown" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="Aboutme" ColumnName="Aboutme" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
+                <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+                <ScalarProperty Name="ImageAvartar" ColumnName="ImageAvartar" />
+                <ScalarProperty Name="ImageCover" ColumnName="ImageCover" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetAllStatusById" FunctionName="SocialFashionModel.Store.GetAllStatusById">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SocialFashionModel.GetAllStatusById_Result">
@@ -1280,7 +1315,55 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="User_Update" FunctionName="SocialFashionModel.Store.User_Update" />
+          <EntitySetMapping Name="StatusLikes">
+            <EntityTypeMapping TypeName="SocialFashionModel.StatusLike">
+              <MappingFragment StoreEntitySet="StatusLikes">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusLikeId" ColumnName="StatusLikeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusComments">
+            <EntityTypeMapping TypeName="SocialFashionModel.StatusComment">
+              <MappingFragment StoreEntitySet="StatusComments">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusCommentId" ColumnName="StatusCommentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AspNetUsers_SearchUserByKeyTop10" FunctionName="SocialFashionModel.Store.AspNetUsers_SearchUserByKeyTop10">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SocialFashionModel.AspNetUsers_SearchUserByKeyTop10_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Hometown" ColumnName="Hometown" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+                <ScalarProperty Name="Aboutme" ColumnName="Aboutme" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
+                <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+                <ScalarProperty Name="ImageAvartar" ColumnName="ImageAvartar" />
+                <ScalarProperty Name="ImageCover" ColumnName="ImageCover" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -22,8 +22,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-	select * from Status where ((UserId = '1' or UserId in (select SenderId from Fan where RequestId = '1') or
-UserId in (select RequestId from Fan where SenderId = '1')) and Privacy = 1) or (Privacy = 0) 
+	select * from Status where ((UserId = @UserId or UserId in (select SenderId from Fan where RequestId = @UserId) or
+UserId in (select RequestId from Fan where SenderId = @UserId)) and Privacy = 1) or (Privacy = 0) 
 END
 
 GO

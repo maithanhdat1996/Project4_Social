@@ -103,6 +103,9 @@
     <Compile Include="Models\AspNetUsers_CheckAddFriend_Result.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetUsers_SearchUserByKeyTop10_Result.cs">
+      <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetUsers_SearchUserByKey_Result.cs">
       <DependentUpon>SocialFashionDbContext.tt</DependentUpon>
     </Compile>

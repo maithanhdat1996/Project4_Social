@@ -12,6 +12,7 @@ namespace SocialFashion.Service
     public interface IAspNetUserService
     {
         IEnumerable<AspNetUser> GetListAspNetUserByIdPaging(int page, int pageSize, string sort, out int totalRow);
+        IEnumerable<AspNetUser> GetAllMembersByKeywords(string keywords, int page, int pageSize, string sort, out int totalRow);
 
         void SaveChanges();
     }
@@ -29,6 +30,31 @@ namespace SocialFashion.Service
         public IEnumerable<AspNetUser> GetListAspNetUserByIdPaging(int page, int pageSize, string sort, out int totalRow)
         {
             var query = _aspNetUserRepository.GetMulti(x => x.EmailConfirmed);
+
+            switch (sort)
+            {
+                //case "popular":
+                //    query = query.OrderByDescending(x => x.ViewCount);
+                //    break;
+                //case "discount":
+                //    query = query.OrderByDescending(x => x.PromotionPrice.HasValue);
+                //    break;
+                //case "price":
+                //    query = query.OrderBy(x => x.Price);
+                //    break;
+                default:
+                    query = query.OrderByDescending(x => x.Name);
+                    break;
+            }
+
+            totalRow = query.Count();
+
+            return query.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        public IEnumerable<AspNetUser> GetAllMembersByKeywords(string keywords, int page, int pageSize, string sort, out int totalRow)
+        {
+            var query = _aspNetUserRepository.GetMulti(x => x.Name.Contains(keywords)   || x.UserName.Contains(keywords));
 
             switch (sort)
             {

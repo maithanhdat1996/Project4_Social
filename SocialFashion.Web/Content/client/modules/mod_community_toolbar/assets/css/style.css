@@ -293,3 +293,17 @@
     border: 2px solid #e3e5e7;
     margin-left: 7.5px;
 }
+
+/* Css search user by keywords*/
+.panel-user-search{
+    padding-top: 0px;
+    padding-left:0px;
+}
+.user_search{
+    text-decoration: none;
+}
+.user_search:hover{
+    text-decoration: none;
+    color: #2d467d;
+}
+/* End css search user by keywords*/

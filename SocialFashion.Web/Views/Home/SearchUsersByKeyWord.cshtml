@@ -9,21 +9,21 @@
                 function (data) {
                     if (data.length > 0) {
                         $("#suggestions").show();
-                        var searchstr = '<ul>';
+                        var searchstr = '<ul class="panel-user-search">';
                         for (var i = 0; i < data.length; i++) {
                             var uid = data[i].Id;
-                            searchstr += '<li>';
-                            searchstr += '<a href="/User/Profile?id=' + uid + '" class="gotopage" id=\'/Profile/Index?ProfileId=' + uid + '\'>';
+                            searchstr += '<li style="padding-left:10px">';
+                            searchstr += '<a href="/User/Profile?id=' + uid + '" class="gotopage user_search" id=\'/Profile/Index?ProfileId=' + uid + '\'>';
                             searchstr += '<table border=\"0\" cellpadding=\"0\" cellspacing=\"3\"><tr><td>';
-                            searchstr += '<img src=' + data[i].ImageAvatar + ' alt="No Img"/>';
-                            searchstr += ' </td><td valign=\"top\">';
+                            searchstr += '<img src=' + data[i].ImageAvartar + ' alt="No Img" width="70px" style="padding-right:15px;  text-decoration: none;"/>';
+                            searchstr += ' </td><td valign=\"middle\" style="font-size:16px; font-weight:bold">';
                             searchstr += '' + data[i].Name + ' <br>';
                             searchstr += '</td></tr></table>';
                             searchstr += '</a>';
                             searchstr += '</li>';
                         }
-                        searchstr += '<li><div style=\"padding:15px 5px;background-color: #d4d4d4;\">';
-                        searchstr += '<a href="@Url.Action("Index", "MoreResults")">More results</a>';
+                        searchstr += '<li><div style=\"margin-top: 10px;padding:15px 5px;background-color: #d4d4d4; text-align:center\">';
+                        searchstr += '<a href="/Members/MoreResult?keyword=' + inputString + ' ">Tìm thêm kết quả cho <b>' + inputString + '</b></a>';
                         searchstr += '<div></li>';
                         searchstr += '</ul>';
                         $("#autoSuggestionsList").html(searchstr);
@@ -36,7 +36,6 @@
         }
     }
     $('.gotopage').on('click', 'input',function () {
-        console.log("check");
         var hreflid = $(this).attr('id');
         window.location = hreflid;
     });
@@ -56,7 +55,7 @@
 </script>
 <form class="navbar-form navbar-left" role="search" name="search" id="cFormSearch" method="get" action="/search/display" style="position:relative">
     <div class="form-group form-group--search">
-        <input type="text" class="form-control" placeholder="Search" id="keyword" name="q" onkeyup="lookup(this.value);">
+        <input type="text" class="form-control" placeholder="Search" id="keyword" name="q" onkeyup="lookup(this.value);" onfocus="lookup(this.value);">
     </div>
     <button type="submit" class="btn btn-default">
         <span class="glyphicon glyphicon-search"></span>

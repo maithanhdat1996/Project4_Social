@@ -25,8 +25,8 @@
         <EntityTypeShape EntityType="SocialFashionModel.Fan" Width="1.5" PointX="12.375" PointY="0.75" />
         <EntityTypeShape EntityType="SocialFashionModel.Notification" Width="1.5" PointX="7.375" PointY="6.75" />
         <EntityTypeShape EntityType="SocialFashionModel.Status" Width="1.5" PointX="9.375" PointY="3.75" />
-        <EntityTypeShape EntityType="SocialFashionModel.StatusComment" Width="1.5" PointX="11.375" PointY="3.75" />
         <EntityTypeShape EntityType="SocialFashionModel.StatusLike" Width="1.5" PointX="11.375" PointY="6.75" />
+        <EntityTypeShape EntityType="SocialFashionModel.StatusComment" Width="1.5" PointX="11.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

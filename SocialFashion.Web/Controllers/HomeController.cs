@@ -110,11 +110,9 @@ namespace SocialFashion.Web.Controllers
         {
             using (SocialFashionDbContext db = new SocialFashionDbContext())
             {
-                List<AspNetUsers_SearchUserByKey_Result> result = db.AspNetUsers_SearchUserByKey(searchString).ToList();
+                List<AspNetUsers_SearchUserByKeyTop10_Result> result = db.AspNetUsers_SearchUserByKeyTop10(searchString).ToList();
                 return new JsonResult { Data = result, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
-
-
         }
     }
 }
