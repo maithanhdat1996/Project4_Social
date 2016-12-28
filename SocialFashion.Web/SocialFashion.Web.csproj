@@ -512,7 +512,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Avatars\IMG20161224213319.jpg" />
+    <Content Include="Resource\dbo_AspNetUsers_SearchUserByKey.sql" />
+    <Content Include="Resource\GetAllStatusById.sql" />
     <Content Include="Resource\script.sql" />
+    <Content Include="Resource\sp_User_Update.sql" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
